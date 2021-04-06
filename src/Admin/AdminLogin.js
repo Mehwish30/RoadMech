@@ -3,7 +3,7 @@ import {     Text, View, StyleSheet, Image } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
 
 
-const AdminLogin = () => {
+const AdminLogin = ({navigation}) => {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
 
@@ -30,7 +30,7 @@ const AdminLogin = () => {
                 secureTextEntry={true}
                 onChangeText={text => setPassword(text)}
                 />
-             <Button   mode="contained" onPress={() => console.log('Pressed')}>
+             <Button   mode="contained" onPress={() => navigation.navigate('AdminHome')}>
                  LogIn
             </Button>   
             

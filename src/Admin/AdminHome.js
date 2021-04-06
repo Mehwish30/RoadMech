@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 
-const CustomerHome = ({navigation}) => {
+const AdminHome = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.imageContainer}>
@@ -16,17 +16,18 @@ const CustomerHome = ({navigation}) => {
       <View style={styles.sparepartsMainContainer}>
         <View style={styles.buySparePartsContainer}>
           <TouchableOpacity style={styles.buyPartsTouchable}
-           onPress={() => navigation.navigate('CustomerBuySpareParts')}
+          onPress={() => navigation.navigate('AddSpareParts')}
+
           >
-            <Text style={styles.buySparePartsStyle}>BUY SPARE PARTS</Text>
+            <Text style={styles.buySparePartsStyle}>ADD SPARE PARTS</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.callMachineContainer}>
           <TouchableOpacity style={styles.callMachineTouchable}
-           onPress={() => navigation.navigate('CustomerCallMechanic')}
+          onPress={() => navigation.navigate('Mechanic')}
           >
-            <Text style={styles.callMachineStyle}>CALL MECHANIC</Text>
+            <Text style={styles.callMachineStyle}>MECHANICS</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,19 +38,17 @@ const CustomerHome = ({navigation}) => {
       <View style={styles.provideFeedBackContainer}>
         <View style={styles.buySparePartsContainer}>
           <TouchableOpacity style={styles.buyPartsTouchable}
-           onPress={() => navigation.navigate('CustomerFeedback')}
-
+          onPress={() => navigation.navigate('ViewFeedback')}
           >
-            <Text style={styles.buySparePartsStyle}>PROVIDE FEEDBACK</Text>
+            <Text style={styles.buySparePartsStyle}>FEEDBACK</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.callMachineContainer}>
           <TouchableOpacity style={styles.callMachineTouchable}
-                   onPress={() => navigation.navigate('CustomerProfile')}
-
+          onPress={() => navigation.navigate('Customer')}
           >
-            <Text style={styles.callMachineStyle}>VIEW PROFILE</Text>
+            <Text style={styles.callMachineStyle}> CUSTOMERS</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -60,18 +59,17 @@ const CustomerHome = ({navigation}) => {
        <View style={styles.provideFeedBackContainer}>
         <View style={styles.buySparePartsContainer}>
           <TouchableOpacity style={styles.buyPartsTouchable}
-          onPress={() => navigation.navigate('CustomerAboutUs')}
+          onPress={() => navigation.navigate('AdminProfile')}
           >
-            <Text style={styles.buySparePartsStyle}>ABOUT US</Text>
+            <Text style={styles.buySparePartsStyle}>PROFILE</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.callMachineContainer}>
           <TouchableOpacity style={styles.callMachineTouchable}
-          onPress={() => navigation.navigate('CustomerContactUs')}
-
+          onPress={() => navigation.navigate('ViewContact')}
           >
-            <Text style={styles.callMachineStyle}>CONTACT US</Text>
+            <Text style={styles.callMachineStyle}>CONTACT</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -80,7 +78,7 @@ const CustomerHome = ({navigation}) => {
   );
 };
 
-export default CustomerHome
+export default AdminHome
 
 const styles = StyleSheet.create({
   mainContainer: { 

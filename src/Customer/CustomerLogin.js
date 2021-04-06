@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
-import {     Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
 
 
-const CustomerLogin = () => {
+const CustomerLogin = ({navigation}) => {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
 
@@ -30,7 +30,7 @@ const CustomerLogin = () => {
                 secureTextEntry={true}
                 onChangeText={text => setPassword(text)}
                 />
-             <Button   mode="contained" onPress={() => console.log('Pressed')}>
+             <Button   mode="contained" onPress={() => navigation.navigate('CustomerHome')}>
                  LogIn
             </Button>   
             

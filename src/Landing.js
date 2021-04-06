@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 
-const Landing = () => {
+const Landing = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View>
@@ -10,7 +10,7 @@ const Landing = () => {
             /> 
             </View>
             <View style={styles.btn}>
-                <TouchableOpacity  >
+                <TouchableOpacity   onPress={() => navigation.navigate('First')}>
                     <Text style={styles.txt} >Get Started</Text>
                 </TouchableOpacity>
             </View>
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
 
     },
     img:{
-        marginTop:50
+        marginTop:50,
+        justifyContent :"center"
      },
      btn:{
         // justifyContent:"flex-end",
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
         // backgroundColor:"red"
         width: '100%', 
         height: 50, 
-        backgroundColor: '#3498db', 
+        backgroundColor: '#e0e0e0', 
         justifyContent: 'center', 
         alignItems: 'center',
         position: 'absolute',
