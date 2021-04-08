@@ -14,6 +14,12 @@ import CustomerContactUs from './src/Customer/CustomerContactUs'
 import MechanicContactUs from './src/Mechanic/MechanicContactUs'
 import CustomerFeedback from './src/Customer/CustomerFeedback'
 import Navigations from './src/navigation/Navigations'
+import ViewContact from './src/Admin/ViewContact'
+import ViewFeedback from './src/Admin/ViewFeedback';
+import Mechanic from './src/Admin/Mechanic';
+import Customer from './src/Admin/Customer';
+import EditCustomer from './src/Admin/EditCustomer';
+import EditMechanic from './src/Admin/EditMechanic';
 
 const App=()=>{
   return(
@@ -32,7 +38,13 @@ const App=()=>{
       //<CustomerContactUs />
       //<MechanicContactUs />
      // <CustomerFeedback />
-      <Navigations />
+     <Navigations />
+     //<ViewContact />
+    // <ViewFeedback />
+    //<Mechanic />
+  // <Customer />
+  // <EditCustomer />
+  //<EditMechanic />
 
   )
 }

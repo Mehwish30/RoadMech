@@ -28,6 +28,8 @@ import ViewFeedback from '../Admin/ViewFeedback';
 import Customer from '../Admin/Customer';
 import ViewContact from '../Admin/ViewContact';
 import AdminProfile from '../Admin/AdminProfile';
+import EditCustomer from '../Admin/EditCustomer';
+import EditMechanic from '../Admin/EditMechanic';
 
 const Navigations = () => {
   const Stack = createStackNavigator();
@@ -87,7 +89,15 @@ const Navigations = () => {
           options={{ title: '' }} />
           <Stack.Screen name="AdminProfile" component={AdminProfile}
           options={{ title: '' }} />
+          <Stack.Screen name="EditCustomer" component={EditCustomer}
+          options={{ title: '' }} />
+          <Stack.Screen name="EditMechanic" component={EditMechanic}
+          options={{ title: '' }} />
+        
+        
         </Stack.Navigator>
+
+        
     </NavigationContainer>
   )
 }
