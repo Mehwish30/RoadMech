@@ -1,7 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { Searchbar } from 'react-native-paper';
 import { Button, Card, Paragraph } from 'react-native-paper';
+import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth'
+import  * as firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 
 
@@ -35,6 +41,42 @@ let data = [
 
 
 const CustomerBuySpareParts = () => {
+
+    const [list, setList]=useState([])
+
+database()
+  .ref(`SpareParts`)
+  .on('value', snapshot => {
+    let li = []
+    //let list=[]
+       snapshot.forEach((child)=>{
+           
+        li.push({
+             AdminId: child.val().AdminId,
+             name:child.val().name,
+               price: child.val().price,
+               desc:child.val().desc,
+               image:child.val().image,
+
+
+              })
+             // setMessage(message)
+           //  console.log(li)
+            
+
+
+       
+        })
+    //console.log('User data: ', snapshot.val());
+    setList(li)
+
+   // console.log(li)
+   
+  });
+  console.log(list)
+
+
+
     const [searchQuery, setSearchQuery] = React.useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
@@ -44,7 +86,7 @@ const CustomerBuySpareParts = () => {
             <Card style={styles.card}>
                 <Card.Title title={item.name} />
                 
-                <Card.Cover source={item.image} />
+                <Card.Cover source={{uri:item.image}} style={{width:"100%",height:200}} />
                 <Card.Content>
                     <Paragraph>{item.desc}</Paragraph>
                 </Card.Content>
@@ -72,8 +114,8 @@ const CustomerBuySpareParts = () => {
                 />
             </View>
             <FlatList
-                data={data}
-                keyExtractor={(item) => item.id}
+                data={list}
+                keyExtractor={(item) => item.AdminId}
                 renderItem={({ item }) => (
                     RenderItem(item)
                 )}

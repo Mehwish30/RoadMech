@@ -1,6 +1,11 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { StyleSheet, Text, View , FlatList, TouchableOpacity, ScrollView} from 'react-native'
 //import { ScrollView } from 'react-native-gesture-handler'
+import auth from '@react-native-firebase/auth'
+import  * as firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 let data = [
     {
@@ -26,7 +31,71 @@ let data = [
     },
 ]
 
+// database().ref(`CustomerConatct`).on('value', (snapshot) =>{
+//     var li = []
+//     snapshot.forEach((child)=>{
+//      li.push({
+//       key: child.val().CustomerID,
+//       name:child.val().name,
+//       age: child.val().age
+//     })
+//   })
+// // list:li
+// })
+// console.log(li)
+//const [message, setMessage]=useState('')
+
+// database()
+//   .ref(`CustomersConatct`)
+//   .on('value', snapshot => {
+//     let li = []
+//        snapshot.forEach((child)=>{
+//         li.push({
+//              key: child.val().CustomerID,
+//              name:child.val().name,
+//                message: child.val().message
+//               })
+//               //setMessage(message)
+
+       
+//         })
+//    // console.log('User data: ', snapshot.val());
+//     console.log(message)
+//   });
+
 const ViewContact = () => {
+    const [list, setList]=useState([])
+
+database()
+  .ref(`CustomersConatct`)
+  .on('value', snapshot => {
+    let li = []
+    //let list=[]
+       snapshot.forEach((child)=>{
+           
+        li.push({
+             CustomerId: child.val().CustomerId,
+             name:child.val().name,
+               message: child.val().message,
+               email:child.val().email
+              })
+             // setMessage(message)
+           //  console.log(li)
+            
+
+
+       
+        })
+    //console.log('User data: ', snapshot.val());
+    setList(li)
+
+   // console.log(li)
+   
+  });
+  console.log(list)
+
+
+
     const RenderItem = (item) => {
         return (
             <View>
@@ -52,8 +121,8 @@ const ViewContact = () => {
             <Text style={styles.txt}>CONTACTS</Text>
             <View style={styles.listcontainer}>
             <FlatList
-                data={data}
-                keyExtractor={(item) => item.id}
+                data={list}
+                keyExtractor={(item) => item.CustomerId}
                 renderItem={({ item }) => (
                     RenderItem(item)
                 )}

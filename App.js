@@ -26,7 +26,7 @@ const App=()=>{
      //< Firstscreen />
       // <AdminLogin />
     //<AdminSignup />
-      // <AddSpareParts />
+     // <AddSpareParts />
       //<CustomerHome />
        // <Landing />
          //<CustomerHome />

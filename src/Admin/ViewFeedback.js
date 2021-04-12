@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View , FlatList, TouchableOpacity} from 'react-native'
 
+
 let data = [
     {
         id: 1,

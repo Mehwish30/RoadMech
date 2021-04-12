@@ -1,7 +1,11 @@
-import React from 'react'
-import { StyleSheet, Text, View , FlatList, TouchableOpacity, ScrollView} from 'react-native'
+import React,{useState} from 'react'
+import { StyleSheet, Text, View , FlatList, TouchableOpacity, getSelection} from 'react-native'
 import Icons from 'react-native-vector-icons/FontAwesome5'
 import Icon from 'react-native-vector-icons/AntDesign'
+import  * as firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 let data = [
     {
@@ -39,19 +43,64 @@ let data = [
 ]
 
 const Customer = ({navigation}) => {
+
+    const deleteCust = (item) => {
+   console.log(`item`, item.CustomerId)
+    database()
+    .ref('Customers/'+item.CustomerId)
+    .remove();
+
+      };
+    
+    const [list, setList]=useState([])
+
+database()
+  .ref(`Customers`)
+  .on('value', snapshot => {
+    let li = []
+    //let list=[]
+       snapshot.forEach((child)=>{
+           
+        li.push({
+             //Id: child.val().CustomerId,
+             name:child.val().name,
+               email: child.val().email,
+               phone:child.val().phone,
+               address:child.val().address,
+               CustomerId: child.val().CustomerId,
+              })
+             // setMessage(message)
+           //  console.log(li)
+            
+
+
+       
+        })
+  //console.log('User data: ', li.phone);
+    setList(li)
+   // console.log(list.phone)
+
+   // console.log(li)
+   
+  });
+
+  
+
+
+
     const RenderItem = (item) => {
         return (
             <View>
                 
                 <View  style={styles.touchcontainer}>
-                <Text style={styles.listtext}>Customer ID: {item.id}</Text>
+                <Text style={styles.listtext}>Customer ID: {item.CustomerId}</Text>
                 <Text style={styles.listtext}>Name:             {item.name}</Text>
                 <Text style={styles.listtext}>Email:            {item.email}</Text>
-                <Text style={styles.listtext}>Location:      {item.location}</Text>
+                <Text style={styles.listtext}>address:      {item.address}</Text>
                 <Text style={styles.listtext}>Phone:           {item.phone}</Text>
                 <View style={styles.iconcontainer}>
-                <Icon name="delete" style={styles.icondelete} onPress={()=>console.log("pressd") }/>
-                <Icons name="edit" style={styles.iconedit} onPress={()=>navigation.navigate("EditCustomer") }/>
+                <Icon name="delete" style={styles.icondelete} onPress={()=>deleteCust(item) }/>
+                <Icons name="edit" style={styles.iconedit} onPress={()=>navigation.navigate("EditCustomer",{ paramKey: item}) }/>
                 </View>
                 </View>
 
@@ -67,8 +116,8 @@ const Customer = ({navigation}) => {
             <View style={styles.listcontainer}>
             
             <FlatList
-                data={data}
-                keyExtractor={(item) => item.id}
+                data={list}
+                keyExtractor={(item) => item.email}
                 renderItem={({ item }) => (
                     RenderItem(item)
                 )}

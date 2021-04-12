@@ -26,7 +26,7 @@ const CustomerLogin = ({navigation}) => {
         auth()
   .signInWithEmailAndPassword(email,password.toString())
   .then(() => {
-    console.log('User signed in anonymously');
+    console.log('User signed in ');
     navigation.navigate('CustomerHome')
   })
   .catch(error => {
@@ -37,25 +37,6 @@ const CustomerLogin = ({navigation}) => {
     console.error(error);
   });
        
-
-{/**auth().signInWithEmailAndPassword(email, password)
-.then(()=>{
-    if (auth().currentUser) {
-      navigation.navigate("CustomerHome")
-    }
-    
-  }).catch(function(error) {
-    //Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log('Register!');
-      console.log(error);
-  })
-  
-}
-**/}
-
-
 
 
   };
