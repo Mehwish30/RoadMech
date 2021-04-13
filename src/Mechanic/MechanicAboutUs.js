@@ -31,7 +31,8 @@ const MechanicAboutUs = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:"#ffffff"
     },
     img: {
         //backgroundColor:"#667986",
@@ -39,10 +40,11 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     txt: {
-        fontSize: 22,
+        fontSize: 20,
         marginHorizontal: 25,
         marginTop:15,
-       // letterSpacing:3
+       // letterSpacing:3,
+       textAlign:"justify"
        
         
 

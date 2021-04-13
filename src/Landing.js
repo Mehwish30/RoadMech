@@ -34,18 +34,21 @@ const styles = StyleSheet.create({
         justifyContent :"center"
      },
      btn:{
-        // justifyContent:"flex-end",
           marginBottom:36,
-        // backgroundColor:"red"
         width: '100%', 
-        height: 50, 
-        backgroundColor: '#e0e0e0', 
         justifyContent: 'center', 
-        alignItems: 'center',
         position: 'absolute',
         bottom: 0,
-        borderRadius:12,
-        marginHorizontal:30
+       
+        height:"12%",
+        borderRadius: 20,
+        alignItems: 'center',
+        backgroundColor: '#e0e0e0',
+        marginHorizontal:10,
+        elevation:3,
+        borderColor:"#000000",
+        borderWidth:1.5
+
   
 
      },

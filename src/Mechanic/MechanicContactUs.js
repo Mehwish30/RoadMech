@@ -51,12 +51,14 @@ const styles = StyleSheet.create({
     img:{
         //backgroundColor:"#667986",
         alignItems:"center",
-        marginTop:5
+        marginTop:5,
+
     },
     container:{
         flex:1,
         marginHorizontal:25,
         justifyContent:"space-evenly",
+        backgroundColor:"#ffffff"
     },
     text:{
         fontSize:26,

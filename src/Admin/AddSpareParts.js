@@ -4,7 +4,6 @@ import { TextInput, Button } from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth'
-import  * as firebase from '@react-native-firebase/app';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -136,7 +135,7 @@ try{
                 keyboardType="numeric"
                 onChangeText={text => setPrice(text)}
                 />
-                <Button icon="camera" mode="contained" onPress={() => UploadGaller()}>
+                <Button icon="camera" mode="contained" onPress={() => Uploadsparepart()}>
                 Upload Image from camera
                 </Button>
                 <Button icon="camera" mode="contained" onPress={() => UploadGaller()}>

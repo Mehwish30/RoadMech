@@ -1,11 +1,48 @@
 import React,{useState} from 'react'
-import {     Text, View, StyleSheet, Image } from 'react-native'
+import {     Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
+import auth from '@react-native-firebase/auth'
+import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-community/async-storage'
+import { launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+
 
 
 const MechanicLogin = ({navigation}) => {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
+
+
+    const  _VerifyAsync = async () => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+        if(email.trim() === ""  || password.length=='')
+        {
+          alert("All inputs must be filled!");
+          return;
+        }
+        if(reg.test(email) === false){
+          alert("INVALID EMAIL!");
+          return ;
+        }
+
+        auth()
+  .signInWithEmailAndPassword(email,password.toString())
+  .then(() => {
+    console.log('User signed in ');
+    navigation.navigate('MechanicHome')
+  })
+  .catch(error => {
+    if (error.code === 'auth/operation-not-allowed') {
+      console.log('Enable anonymous in your firebase console.');
+    }
+
+    console.error(error);
+  });
+       
+
+
+  };
 
     return (
         <View>
@@ -30,9 +67,16 @@ const MechanicLogin = ({navigation}) => {
                 secureTextEntry={true}
                 onChangeText={text => setPassword(text)}
                 />
-             <Button   mode="contained" onPress={() => navigation.navigate('MechanicHome')}>
+             <Button   mode="contained" onPress={() => _VerifyAsync()}>
                  LogIn
             </Button>   
+            <TouchableOpacity onPress={()=>navigation.navigate("MechanicSignup")}
+        style={styles.navButton}
+        >
+        <Text style={styles.navButtonText}>Have an account? Sign In</Text>
+      </TouchableOpacity> 
+            
+
             
             </View>
 
@@ -57,5 +101,14 @@ const styles = StyleSheet.create({
         paddingHorizontal:40,
         height:'50%',
         justifyContent:"space-evenly"
-    }
+    },
+    navButton: {
+        marginTop: 15,
+      },
+      navButtonText: {
+        fontSize: 18,
+        fontWeight: '500',
+        color: '#2e64e5',
+        fontFamily: 'Lato-Regular',
+      },
 })

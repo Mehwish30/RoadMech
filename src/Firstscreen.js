@@ -1,16 +1,10 @@
 import React,{ useState, useEffect } from 'react'
 import { View , StyleSheet, Image } from 'react-native'
 import { Button  } from 'react-native-paper';
-//import { NavigationContainer } from '@react-navigation/native';
 
 
 
 const Firstscreen = ({navigation}) => {
-
-    useEffect(() => {
-       // console.log(`this.props.navigation.navigate`, this.props)
-     
-      });
 
     return (
         <View style={styles.container}>
@@ -46,6 +40,7 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center' ,
         justifyContent:'center',
+        backgroundColor:"#ffffff"
        
        // backgroundColor:"#667986"
 
