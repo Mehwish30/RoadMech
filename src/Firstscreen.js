@@ -5,6 +5,16 @@ import { Button  } from 'react-native-paper';
 
 
 const Firstscreen = ({navigation}) => {
+    const  _navigateAdmin = async () => {
+        navigation.navigate('AdminLogin');
+        };
+     const    _navigateCustomer = async () => {
+        navigation.navigate('Customerlogin');
+        };
+      const  _navigateMechanic = async () => {
+            navigation.navigate('Mechaniclogin');
+            };
+
 
     return (
         <View style={styles.container}>
@@ -16,15 +26,15 @@ const Firstscreen = ({navigation}) => {
             </View>
              <View style={styles.button}> 
                 <Button style={styles.button}  mode="contained"
-                 onPress={() =>navigation.navigate('AdminLogin')}>
+                 onPress={() =>_navigateAdmin()}>
                 login As Admin
                 </Button>
                 <Button  style={styles.button} mode="contained"
-                 onPress={() =>navigation.navigate('Mechaniclogin')}>
+                 onPress={() =>_navigateMechanic()}>
                 login As Mechanic
                 </Button>
                 <Button style={styles.button}  mode="contained"
-                 onPress={() => navigation.navigate('Customerlogin')}>
+                 onPress={() => _navigateCustomer()}>
                 login As Customer
                 </Button>
         </View>
@@ -32,8 +42,9 @@ const Firstscreen = ({navigation}) => {
   
 
         </View>
+        
     )
-}
+  }
 const styles = StyleSheet.create({
     container:{
          

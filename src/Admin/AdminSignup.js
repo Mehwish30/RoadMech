@@ -2,12 +2,8 @@ import React,{useState} from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
 import auth from '@react-native-firebase/auth'
-import  * as firebase from '@react-native-firebase/app';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-community/async-storage'
-
-
-
 
 const AdminSignup = ({navigation}) => {
     const [email, setEmail]=useState('')
@@ -15,8 +11,10 @@ const AdminSignup = ({navigation}) => {
     const [phone, setPhone]=useState('')
     const [address, setAddress]=useState('')
     const [name, setName]=useState('')
+    const [Admin, setAdmin]=useState('')
 
-    const _VerifyAsync = async () => {
+
+    const _Verifyadmin = async () => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
         if(name.trim() === "" || email.trim() === "" || phone.trim() === ""  || password.length=='')
         {
@@ -40,18 +38,19 @@ auth().createUserWithEmailAndPassword(email, password)
             password:password,
             name:name,
             address:address,
-            CustomerId:userId,
-          phone:phone
+            AdminId:userId,
+          phone:phone,
+          Admin:true
           })
       }
     }
-    alert("Successfully added")
+    alert("Successfully added Admin")
     navigation.navigate("AdminLogin")
   }).catch(function(error) {
     // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log('Register!');
+     // console.log('Register!');
       console.log(error);
   })
   
@@ -103,7 +102,7 @@ auth().createUserWithEmailAndPassword(email, password)
                 mode='outlined'
                 onChangeText={text => setAddress(text)}
                 />
-             <Button   mode="contained" onPress={() => _VerifyAsync()}>
+             <Button   mode="contained" onPress={() => _Verifyadmin()}>
                  Signup
             </Button>   
             

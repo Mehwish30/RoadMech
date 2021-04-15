@@ -17,7 +17,6 @@ const CustomerProfile = ({navigation}) => {
     const details=()=>{
         var currentUser = auth().currentUser
             database().ref(`Customers`).child(currentUser.uid).on('value',  (data) =>{
-                console.log('ziaher')
             let name1 = data.child('name').val();
             setName(name1);
             let phone = data.child('phone').val();
@@ -29,7 +28,7 @@ const CustomerProfile = ({navigation}) => {
 
             })
 
-            console.log(`name`, name)
+          //  console.log(`name`, name)
     }
     useEffect(()=>{
         details()
@@ -41,7 +40,7 @@ const CustomerProfile = ({navigation}) => {
         const signOutUser = async () => {
                 try {
                     auth().signOut();
-                    console.log(signOutUser)
+                   // console.log(signOutUser)
                     navigation.navigate("Customerlogin")
                 } catch (e) {
                     console.log(e);
@@ -58,6 +57,7 @@ const CustomerProfile = ({navigation}) => {
             <Image style={styles.img}
                     source={require('../assets/profile.jpg')}
                 />
+
 
             <Text style={styles.txt}>{name}
             </Text>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         justifyContent:"space-evenly"
     },
     topacity: {
-        width: "100%",
+        width: "90%",
         height:"18%",
         borderRadius: 20,
         alignItems: 'center',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         //shadowOpacity:1
         flexDirection:"row",
         marginHorizontal:10,
-        elevation:3,
+        elevation:15,
         borderColor:"#000000",
         borderWidth:1.5
 
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     },
     
     text:{
-        fontSize:22,
-        marginLeft:70
+        fontSize:18,
+        marginLeft:40
     },
     textlogou:{
         fontSize:22,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         
     },
     icon:{
-        marginLeft:35
+        marginLeft:25
     },
     phoneicon:{
         marginRight:56

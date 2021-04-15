@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {     Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import {     Text, View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
 import auth from '@react-native-firebase/auth'
 import database from '@react-native-firebase/database';
@@ -14,35 +14,138 @@ const MechanicLogin = ({navigation}) => {
     const [password, setPassword]=useState('')
 
 
-    const  _VerifyAsync = async () => {
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
-        if(email.trim() === ""  || password.length=='')
-        {
-          alert("All inputs must be filled!");
-          return;
-        }
-        if(reg.test(email) === false){
-          alert("INVALID EMAIL!");
-          return ;
-        }
 
-        auth()
-  .signInWithEmailAndPassword(email,password.toString())
-  .then(() => {
-    console.log('User signed in ');
-    navigation.navigate('MechanicHome')
-  })
-  .catch(error => {
-    if (error.code === 'auth/operation-not-allowed') {
-      console.log('Enable anonymous in your firebase console.');
-    }
+    const  getMechanicRole = async() => {
+      AsyncStorage.getItem("MechanicId") 
+        .then((result) =>
+    
+            database()
+            .ref("Mecahnic/" + result )
+            .on("value", (snapshot) => {
+              if (snapshot.exists()) {
+                var isMechanic = snapshot.child("Mechanic").val();
+                console.log("Is user a Mechanic?" + isMechanic);
+                console.log(snapshot.val());
+                if (isMechanic) {
+                 // this.goToMaps();
+                navigation.navigate("MechanicHome")
+                }
+              } else {
+                Alert.alert(
+                  "Alert",
+                  "This user is not registered as a Mechanic",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                  ]
+                );
+              }
+            })
+        );
+    };
+  
 
-    console.error(error);
-  });
+
+  //   const  _VerifyAsync = async () => {
+  //       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+  //       if(email.trim() === ""  || password.length=='')
+  //       {
+  //         alert("All inputs must be filled!");
+  //         return;
+  //       }
+  //       if(reg.test(email) === false){
+  //         alert("INVALID EMAIL!");
+  //         return ;
+  //       }
+  //       const userToken1= await AsyncStorage.getItem('MechanicId');
+
+  
+  //       auth()
+  // .signInWithEmailAndPassword(email,password.toString())
+  // .then(() => {
+  //   console.log('User signed in ');
+  //   navigation.navigate('MechanicHome')
+  // })
+  // .catch(error => {
+  //   if (error.code === 'auth/operation-not-allowed') {
+  //     console.log('Enable anonymous in your firebase console.');
+  //   }
+
+  //   console.error(error);
+  // });
        
 
 
-  };
+  // };
+
+
+
+
+
+
+
+
+  const  _VerifyAsync = async () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    if(email.trim() === ""  || password.length=='')
+    {
+      alert("All inputs must be filled!");
+      return;
+    }
+    if(reg.test(email) === false){
+      alert("INVALID EMAIL!");
+      return ;
+    }
+
+//       auth()
+// .signInWithEmailAndPassword(email,password.toString())
+// .then(() => {
+//  getCustomerRole();
+
+//   console.log('User signed in ');
+// //  navigation.navigate('CustomerHome')
+// })
+// .catch(error => {
+//   if (error.code === 'auth/operation-not-allowed') {
+//     console.log('Enable anonymous in your firebase console.');
+//   }
+
+//   console.error(error);
+// }
+// //getCustomerRole();
+// );
+
+
+auth()
+.signInWithEmailAndPassword(email, password)
+.then(
+() => {
+  AsyncStorage.setItem("MechanicId", auth().currentUser.uid);
+  getMechanicRole();
+  
+
+  //  this.props.navigation.navigate("Maps");
+},
+(error) => {
+  //this.toast.show("error:" + error.message, 500);
+  console.log(error)
+  
+}
+
+) ;
+
+//getCustomerRole();
+
+};
+
+
+
+   
+
+
 
     return (
         <View>

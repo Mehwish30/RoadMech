@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput, Button } from 'react-native-paper';
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-community/async-storage'
+import database from '@react-native-firebase/database';
 
 
 const CustomerLogin = ({navigation}) => {
@@ -11,6 +12,38 @@ const CustomerLogin = ({navigation}) => {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
 
+    const  getCustomerRole = async() => {
+      AsyncStorage.getItem("CustomerId") 
+        .then((result) =>
+    
+            database()
+            .ref("Customers/" + result )
+            .on("value", (snapshot) => {
+              if (snapshot.exists()) {
+                var isCustomer = snapshot.child("Customer").val();
+                console.log("Is user a Customer?" + isCustomer);
+                console.log(snapshot.val());
+                if (isCustomer) {
+                 // this.goToMaps();
+                 navigation.navigate("CustomerHome")
+                }
+              } else {
+                Alert.alert(
+                  "Alert",
+                  "This user is not registered as a Customer",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                  ]
+                );
+              }
+            })
+        );
+    };
+  
     const  _VerifyAsync = async () => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
         if(email.trim() === ""  || password.length=='')
@@ -22,25 +55,38 @@ const CustomerLogin = ({navigation}) => {
           alert("INVALID EMAIL!");
           return ;
         }
+    
+  
+  auth()
+  .signInWithEmailAndPassword(email, password)
+  .then(
+    () => {
+      AsyncStorage.setItem("CustomerId", auth().currentUser.uid);
+      getCustomerRole();
+      
 
-        auth()
-  .signInWithEmailAndPassword(email,password.toString())
-  .then(() => {
-    console.log('User signed in ');
-    navigation.navigate('CustomerHome')
-  })
-  .catch(error => {
-    if (error.code === 'auth/operation-not-allowed') {
-      console.log('Enable anonymous in your firebase console.');
+      //  this.props.navigation.navigate("Maps");
+    },
+    (error) => {
+      //this.toast.show("error:" + error.message, 500);
+      console.log(error)
+      
     }
+    
+  ) ;
+  
+  //getCustomerRole();
 
-    console.error(error);
-  });
+};
+
+
+
        
 
 
-  };
-  
+
+ // };
+ 
     return (
         <View>
             <View style={styles.img}>

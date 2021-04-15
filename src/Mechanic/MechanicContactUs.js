@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         flex:1,
         marginHorizontal:25,
         justifyContent:"space-evenly",
-        backgroundColor:"#ffffff"
+        backgroundColor:"#ffffff",
     },
     text:{
         fontSize:26,

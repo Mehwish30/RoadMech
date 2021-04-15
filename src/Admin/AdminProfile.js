@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#e0e0e0',
-        //shadowOpacity:1
         flexDirection:"row",
 
     },
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#003F87',
-        //shadowOpacity:1
         flexDirection:"row",
         marginHorizontal:30
     },

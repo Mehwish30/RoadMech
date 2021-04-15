@@ -73,6 +73,8 @@ uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
     const [phone, setPhone]=useState('')
     const [expertise, setExpertise]=useState('')
     const [address, setAddress]=useState('')
+    const [isMechanic, setMechanic]=useState('')
+
 
 
     const _VerifyAsync = async () => {
@@ -102,7 +104,8 @@ auth().createUserWithEmailAndPassword(email, password)
             MecahnicId:userId,
             expertise:expertise,
             image:image,
-          phone:phone
+          phone:phone,
+        Mechanic:true
           })
       }
     }

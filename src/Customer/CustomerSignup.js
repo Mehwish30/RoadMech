@@ -4,9 +4,9 @@ import { TextInput, Button } from 'react-native-paper'
 //import Toast from 'react-native-simple-toast';
 //import firebase from '@react-native-firebase'
 import auth from '@react-native-firebase/auth'
-import  * as firebase from '@react-native-firebase/app';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-community/async-storage'
+
 
 
 
@@ -19,6 +19,7 @@ const  CustomerSignup = ({navigation}) => {
     const [phone, setPhone]=useState('')
     const [address, setAddress]=useState('')
     const [name, setName]=useState('')
+    const [isCustomer, setCustomer]=useState('')
 
     const _VerifyAsync = async () => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
@@ -45,7 +46,8 @@ auth().createUserWithEmailAndPassword(email, password)
             name:name,
             address:address,
             CustomerId:userId,
-          phone:phone
+          phone:phone,
+          Customer:true
           })
       }
     }

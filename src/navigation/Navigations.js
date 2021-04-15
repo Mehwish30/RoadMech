@@ -30,6 +30,8 @@ import ViewContact from '../Admin/ViewContact';
 import AdminProfile from '../Admin/AdminProfile';
 import EditCustomer from '../Admin/EditCustomer';
 import EditMechanic from '../Admin/EditMechanic';
+import CallMechanic from '../Customer/CallMechanic';
+import AuthLoading from '../Authloading';
 
 const Navigations = () => {
   const Stack = createStackNavigator();
@@ -93,6 +95,12 @@ const Navigations = () => {
           options={{ title: '' }} />
           <Stack.Screen name="EditMechanic" component={EditMechanic}
           options={{ title: '' }} />
+           <Stack.Screen name="CallMechanic" component={CallMechanic}
+          options={{ title: '' }} />
+          <Stack.Screen name="Authloading" component={AuthLoading}
+          options={{ title: '' }} />
+        
+        
         
         
         </Stack.Navigator>

@@ -1,49 +1,81 @@
 import React,{useState} from 'react'
-import {     Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import {     Text, View, StyleSheet, Image, TouchableOpacity,Alert } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
 import auth from '@react-native-firebase/auth'
-import  * as firebase from '@react-native-firebase/app';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-community/async-storage'
-
-
-
 
 const AdminLogin = ({navigation}) => {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
 
+    const  getAdminRole = async() => {
+      AsyncStorage.getItem("AdminId") 
+        .then((result) =>
+    
+            database()
+            .ref("Admin/" + result )
+            .on("value", (snapshot) => {
+              if (snapshot.exists()) {
+                var isAdmin = snapshot.child("Admin").val();
+               // console.log("Is user a Admin?" + isAdmin);
+               // console.log(snapshot.val());
+                if (isAdmin) {
+                navigation.navigate("AdminHome")
+                }
+              } else {
+                Alert.alert(
+                  "Alert",
+                  "This user is not registered as a Admin",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                  ]
+                );
+              }
+            })
+        );
+    };
+  
     const  _VerifyAsync = async () => {
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
-        if(email.trim() === ""  || password.length=='')
-        {
-          alert("All inputs must be filled!");
-          return;
-        }
-        if(reg.test(email) === false){
-          alert("INVALID EMAIL!");
-          return ;
-        }
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+      if(email.trim() === ""  || password.length=='')
+      {
+        alert("All inputs must be filled!");
+        return;
+      }
+      if(reg.test(email) === false){
+        alert("INVALID EMAIL!");
+        return ;
+      }
+   auth()
+  .signInWithEmailAndPassword(email, password)
+  .then(
+  () => {
+    AsyncStorage.setItem("AdminId", auth().currentUser.uid);
+    getAdminRole();
+    
 
-        auth()
-  .signInWithEmailAndPassword(email,password.toString())
-  .then(() => {
-    console.log('User signed in ');
-    navigation.navigate('AdminHome')
-  })
-  .catch(error => {
-    if (error.code === 'auth/operation-not-allowed') {
-      console.log('Enable anonymous in your firebase console.');
-    }
-
-    console.error(error);
-  });
-       
-
-    }
-
+  },
+  (error) => {
+    console.log(error)
+    
+  }
+  
+  ) ;
+  
+  
+  
+  };
+  
+  
+  
+   
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.img}>
             <Image   
                 source={require('../assets/logo.png')}
@@ -68,11 +100,6 @@ const AdminLogin = ({navigation}) => {
              <Button   mode="contained" onPress={() => _VerifyAsync()}>
                  LogIn
             </Button>   
-            <TouchableOpacity onPress={()=>navigation.navigate("AdminSignup")}>
-            <Text style={styles.navButtonText}>
-          Don't have an acount? Create here
-        </Text>
-        </TouchableOpacity>
             
             </View>
 
@@ -104,4 +131,8 @@ const styles = StyleSheet.create({
         color: '#2e64e5',
       //  fontFamily: 'Lato-Regular',
       },
+      container :{
+        backgroundColor:'#ffffff',
+        flex:1,
+      }
 })

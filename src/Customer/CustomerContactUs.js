@@ -56,8 +56,9 @@ try{
 
     return (
         
+        
         <View style={styles.container}>
-            <KeyboardAvoidingView>
+            
              <View style={styles.img}>
             <Image   
                 source={require('../assets/logo.png')}
@@ -92,7 +93,7 @@ try{
             
             
             </View>
-            </KeyboardAvoidingView>
+        
         </View>
         
     )
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         marginHorizontal:25,
+        backgroundColor:'#ffffff',
         justifyContent:"space-evenly",
     },
     text:{
