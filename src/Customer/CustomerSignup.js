@@ -56,7 +56,7 @@ auth().createUserWithEmailAndPassword(email, password)
     // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log('Register!');
+    
       console.log(error);
   })
   navigation.navigate("Customerlogin")

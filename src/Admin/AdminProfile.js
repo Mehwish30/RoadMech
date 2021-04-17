@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#003F87',
-        flexDirection:"row",
+        flexDirection:"row", 
         marginHorizontal:30
     },
     
