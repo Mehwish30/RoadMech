@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from '../Landing';
@@ -20,7 +19,6 @@ import MechanicAboutUs from '../Mechanic/MechanicAboutUs';
 import CustomerAboutUs from '../Customer/CustomerAboutUs';
 import CustomerBuySpareParts from '../Customer/CustomerBuySpareParts';
 import CustomerFeedback from '../Customer/CustomerFeedback'
-import CustomerCallMechanic from '../Customer/CustomerCallMechanic';
 import CustomerProfile from '../Customer/CustomerProfile';
 import MechanicProfile from '../Mechanic/MechanicProfile';
 import Mechanic from '../Admin/Mechanic';
@@ -30,37 +28,67 @@ import ViewContact from '../Admin/ViewContact';
 import AdminProfile from '../Admin/AdminProfile';
 import EditCustomer from '../Admin/EditCustomer';
 import EditMechanic from '../Admin/EditMechanic';
-import CallMechanic from '../Customer/CallMechanic';
-import AuthLoading from '../Authloading';
+import CallMechanicHome from '../Customer/CallMechanicHome';
+import MechanicDetails from '../Customer/MechanicDetails';
+import ViewRequestCustomer from '../Mechanic/ViewRequestCustomer';
+import MechanicAddSpareParts from '../Mechanic/MechanicAddSpareParts';
+import TrackCustomerLocation from '../Mechanic/TrackCustomerLocation';
+import ViewCart from '../Customer/ViewCart';
 
 const Navigations = () => {
   const Stack = createStackNavigator();
-
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Landing">
         <Stack.Screen name="Landing" component={Landing}
-          options={{ title: '' }} />
+          options={{
+            headerTitle: ""
+            , headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              marginLeft: 700,
+              fontSize: 39
+            },
+          }} />
         <Stack.Screen name="First" component={Firstscreen}
-          options={{ title: '' }} />
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+          }} />
         <Stack.Screen name="Customerlogin" component={CustomerLogin}
           options={{ title: '' }} />
         <Stack.Screen name="CustomerSignup" component={CustomerSignup}
           options={{ title: '' }} />
         <Stack.Screen name="CustomerHome" component={CustomerHome}
-          options={{ title: '' }} />
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+          }} />
         <Stack.Screen name="Mechaniclogin" component={MechanicLogin}
           options={{ title: '' }} />
         <Stack.Screen name="MechanicSignup" component={MechanicSignup}
           options={{ title: '' }} />
         <Stack.Screen name="MechanicHome" component={MechanicHome}
-          options={{ title: '' }} />
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+          }} />
         <Stack.Screen name="AdminSignup" component={AdminSignup}
           options={{ title: '' }} />
         <Stack.Screen name="AdminLogin" component={AdminLogin}
           options={{ title: '' }} />
         <Stack.Screen name="AdminHome" component={AdminHome}
-          options={{ title: '' }} />
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+          }} />
         <Stack.Screen name="AddSpareParts" component={AddSpareParts}
           options={{ title: '' }} />
         <Stack.Screen name="CustomerContactUs" component={CustomerContactUs}
@@ -75,37 +103,71 @@ const Navigations = () => {
           options={{ title: '' }} />
         <Stack.Screen name="CustomerBuySpareParts" component={CustomerBuySpareParts}
           options={{ title: '' }} />
-        <Stack.Screen name="CustomerCallMechanic" component={CustomerCallMechanic}
-          options={{ title: '' }} />
         <Stack.Screen name="CustomerProfile" component={CustomerProfile}
-          options={{ title: '' }} />
+          options={{ title: '' , headerStyle: {
+            backgroundColor: '#C3E4ED',
+          },}} />
         <Stack.Screen name="MechanicProfile" component={MechanicProfile}
-          options={{ title: '' }} />
-          <Stack.Screen name="Mechanic" component={Mechanic}
-          options={{ title: '' }} />
+          options={{ title: '' , headerStyle: {
+            backgroundColor: '#C3E4ED',
+          },}} />
+        <Stack.Screen name="Mechanic" component={Mechanic}
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#293941',
+            },
+          }} />
         <Stack.Screen name="ViewFeedback" component={ViewFeedback}
-          options={{ title: '' }} />
-          <Stack.Screen name="Customer" component={Customer}
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#293941',
+            }
+          }} />
+        <Stack.Screen name="Customer" component={Customer}
           options={{ title: '' }} />
         <Stack.Screen name="ViewContact" component={ViewContact}
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#293941',
+            }
+          }} />
+        <Stack.Screen name="AdminProfile" component={AdminProfile}
           options={{ title: '' }} />
-          <Stack.Screen name="AdminProfile" component={AdminProfile}
+        <Stack.Screen name="EditCustomer" component={EditCustomer}
           options={{ title: '' }} />
-          <Stack.Screen name="EditCustomer" component={EditCustomer}
+        <Stack.Screen name="EditMechanic" component={EditMechanic}
           options={{ title: '' }} />
-          <Stack.Screen name="EditMechanic" component={EditMechanic}
+        <Stack.Screen name="CallMechanicHome" component={CallMechanicHome}
           options={{ title: '' }} />
-           <Stack.Screen name="CallMechanic" component={CallMechanic}
+        <Stack.Screen name="MechanicDetails" component={MechanicDetails}
+          options={{ title: '' , headerStyle: {
+            backgroundColor: '#C3E4ED',
+          },}} />
+        <Stack.Screen name="ViewRequest" component={ViewRequestCustomer}
+          options={{
+            title: '', headerStyle: {
+              backgroundColor: '#C3E4ED',
+            },
+          }} />
+        <Stack.Screen name="MechanicAddSpareParts" component={MechanicAddSpareParts}
           options={{ title: '' }} />
-          <Stack.Screen name="Authloading" component={AuthLoading}
+           <Stack.Screen name="TrackCustomerLocation" component={TrackCustomerLocation}
           options={{ title: '' }} />
-        
-        
-        
-        
-        </Stack.Navigator>
+          <Stack.Screen name="ViewCart" component={ViewCart}
+          options={{ title: '' }} />
 
-        
+
+
+
+
+
+
+
+
+
+      </Stack.Navigator>
+
+
     </NavigationContainer>
   )
 }

@@ -4,19 +4,19 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ICon from 'react-native-vector-icons/MaterialIcons';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import AsyncStorage from '@react-native-community/async-storage'
+
 //import { useState } from 'react'
 
 
 
-const CustomerProfile = ({navigation}) => {
-    const [name, setName]=useState('')
-    const [phone, setPhone]=useState('')
-    const [email, setEmail]=useState('')
-    const [address, setAddress]=useState('')
-    const details=()=>{
+const CustomerProfile = ({ navigation }) => {
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+    const details = () => {
         var currentUser = auth().currentUser
-            database().ref(`Customers`).child(currentUser.uid).on('value',  (data) =>{
+        database().ref(`Customers`).child(currentUser.uid).on('value', (data) => {
             let name1 = data.child('name').val();
             setName(name1);
             let phone = data.child('phone').val();
@@ -26,62 +26,62 @@ const CustomerProfile = ({navigation}) => {
             let address = data.child('address').val();
             setAddress(address)
 
-            })
+        })
 
-          //  console.log(`name`, name)
+        //  console.log(`name`, name)
     }
-    useEffect(()=>{
+    useEffect(() => {
         details()
-        return()=>
-        console.log("warning")
-    },[])
-
-    
-        const signOutUser = async () => {
-                try {
-                    auth().signOut();
-                   // console.log(signOutUser)
-                    navigation.navigate("Customerlogin")
-                } catch (e) {
-                    console.log(e);
-                }
-            }
-            
-
-      
+        return () =>
+            console.log("warning")
+    }, [])
 
 
-        return (
+    const signOutUser = async () => {
+        try {
+            auth().signOut();
+            // console.log(signOutUser)
+            navigation.navigate("Customerlogin")
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+
+
+
+    return (
         <View style={styles.container}>
             <View style={styles.imgcontainer}>
-            <Image style={styles.img}
-                    source={require('../assets/profile.jpg')}
+                <Image style={styles.img}
+                    source={require('../assets/customerprofile.png')}
                 />
 
 
-            <Text style={styles.txt}>{name}
-            </Text>
+                <Text style={styles.txt}>{name}
+                </Text>
             </View>
             <View style={styles.Touchcontainer}>
                 <TouchableOpacity style={styles.topacity}>
-                <Icon name="phone" style={styles.icon}size={30} color="#000000"  />
+                    <Icon name="phone" style={styles.icon} size={30} color="#000000" />
 
-                     <Text style={styles.text}>{phone}</Text> 
+                    <Text style={styles.text}>{phone}</Text>
 
-                    
+
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.topacity}>
-                <Icon name="email" style={styles.icon}size={30} color="#000000"  />
+                    <Icon name="email" style={styles.icon} size={30} color="#000000" />
 
                     <Text style={styles.text}>{email}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.topacity}>
-                <ICon name="place" style={styles.icon}size={30} color="#000000"  />
+                    <ICon name="place" style={styles.icon} size={30} color="#000000" />
 
-                     <Text style={styles.text}>{address}</Text> 
+                    <Text style={styles.text}>{address}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.topacitylogout} onPress={()=>signOutUser()}>
-                <ICon name="logout" style={styles.icon}size={30} color="#000000"  />
+                <TouchableOpacity style={styles.topacitylogout} onPress={() => signOutUser()}>
+                    <ICon name="logout" style={styles.icon} size={30} color="#000000" />
 
                     <Text style={styles.textlogou}>LOG OUT</Text>
                 </TouchableOpacity>
@@ -93,86 +93,100 @@ const CustomerProfile = ({navigation}) => {
 export default CustomerProfile
 
 const styles = StyleSheet.create({
-    imgcontainer:{
-        borderRadius:28,
-       // backgroundColor:"red",
-        height:"26%",
-        marginTop:4,
-        alignItems:"center",
-        //justifyContent:"space-evenly"
+    imgcontainer: {
+        borderRadius: 28,
+        height: "27%",
+        // marginTop:4,
+        alignItems: "center",
+
+
 
     },
-    img:{
-        width:"30%",
-        height:"90%",
-        borderRadius:70,
-        //marginLeft:70
-        alignItems:"center"
+    img: {
+        width: "50%",
+        height: "90%",
+        borderRadius: 20,
+        marginTop: 10,
+        alignItems: "center",
+
 
     },
-    container:{
-        flex:1,
-        backgroundColor:"#fff"
+    container: {
+        flex: 1,
+        backgroundColor: "#C3E4ED"
     },
-    txt:{
-        fontSize:30,
-        //padding:10
-        marginTop:6,
-        marginLeft:19,
-        fontWeight:"bold"
+    txt: {
+        fontSize: 30,
+        color: '#C2185B',
+        fontFamily: "StrickenBrush-D9a3",
+
+        marginTop: 16
     },
-    Touchcontainer:{
-        marginTop:30,
-        alignItems:"center",
-        justifyContent:"space-evenly"
+    Touchcontainer: {
+        marginTop: 70,
+        alignItems: "center",
+        // justifyContent:"space-evenly"
     },
     topacity: {
         width: "90%",
-        height:"18%",
-        borderRadius: 20,
+        height: "16%",
+        borderRadius: 40,
         alignItems: 'center',
-       // justifyContent: 'center',
+        justifyContent: 'center',
         backgroundColor: '#e0e0e0',
-        //shadowOpacity:1
-        flexDirection:"row",
-        marginHorizontal:10,
-        elevation:15,
-        borderColor:"#000000",
-        borderWidth:1.5
+        flexDirection: "row",
+        marginTop: 16,
+        elevation: 2,
+        // marginBottom:16,
+        elevation: 10,
+        shadowOpacity: 90,
+        shadowColor: '#000000',
+        shadowRadius: 25,
+        shadowOffset: { width: 0, height: 15 }
 
     },
     topacitylogout: {
         width: "90%",
-        height:"18%",
+        height: "17%",
         borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#003F87',
-        //shadowOpacity:1
-        flexDirection:"row",
-        marginHorizontal:30,
-        borderWidth:1.5,
-        borderColor:"#000000"
+        marginTop: 16,
+        backgroundColor: '#C2185B',
+        flexDirection: "row",
+        marginHorizontal: 30,
+        elevation: 2,
+        //marginBottom:16,
+        elevation: 10,
+        shadowOpacity: 90,
+        shadowColor: '#000000',
+        shadowRadius: 25,
+        shadowOffset: { width: 0, height: 15 }
+    },
+
+    text: {
+        fontSize: 18,
 
     },
-    
-    text:{
-        fontSize:18,
-        marginLeft:40
+    textlogou: {
+        fontSize: 30,
+        color: '#ffffff',
+        fontFamily: "StrickenBrush-D9a3",
+        elevation: 2,
+        //  marginBottom:16,
+        paddingTop: 20
+
+
     },
-    textlogou:{
-        fontSize:22,
-       
-        
+
+    icon: {
+        // marginLeft:30
     },
-    icon:{
-        marginLeft:25
-    },
-    phoneicon:{
-        marginRight:56
+    phoneicon: {
+        // marginRight:30
     }
-   
-    
-    
+
+
+
 
 })
