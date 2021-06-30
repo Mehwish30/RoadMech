@@ -5,7 +5,9 @@ import { Button, Card, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign'
 import storage from '@react-native-firebase/storage';
 import database from '@react-native-firebase/database';
-import { Item } from 'native-base';
+import auth from '@react-native-firebase/auth'
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 
 
@@ -16,8 +18,65 @@ const CustomerBuySpareParts = ({navigation}) => {
 
     const [list, setList] = useState([])
     const [quantity, setQuantity] = useState([])
+    const [tp, setTp] = useState('')
+   // const [tp, setTp] = useState('')
     
+    const Cart=(item)=>{
+        try {
+            if (auth().currentUser) {
+              let userId = auth().currentUser.uid;
+              if (userId) {
+                AsyncStorage.setItem('UserId', userId);
+                database().ref('Cart/'+ userId).push({
+                  name: item.name,
+                  price:item.price,
+                  total:tp,
+                  desc: item.desc,
+
+                 UserId: userId,
+                  image: item.image
+
+      
+      
+                })
+              }
+             console.log("name", tp)
+            }
+            alert("Spare Parts Added")
+          }
+          catch (error) {
+            console.log(error);
+          }
+      
+       
+
+    }
    
+    // try {
+    //     if (auth().currentUser) {
+    //       let userId = auth().currentUser.uid;
+    //       if (userId) {
+    //         AsyncStorage.setItem('UserId', userId);
+    //         database().ref('Cart/').push({
+    //          // name: name,
+    //           desc: desc,
+    //           price: price,
+    //           AdminId: userId,
+    //           image: image
+  
+  
+    //         })
+    //       }
+    //     }
+    //     alert("Spare Parts Added")
+    //   }
+    //   catch (error) {
+    //     console.log(error);
+    //   }
+  
+    
+  
+
 
 
     database()
@@ -25,6 +84,7 @@ const CustomerBuySpareParts = ({navigation}) => {
         .on('value', snapshot => {
             let li = []
             //let list=[]
+    
             snapshot.forEach((child) => {
 
                 li.push({
@@ -59,14 +119,20 @@ const CustomerBuySpareParts = ({navigation}) => {
                     let newQty=item[0].qty+1
                     item[0].qty=newQty
                     item[0].total=item[0].qty*price
+                    setTp( item[0].total)
+                 //  console.log("tp",tp)
                 }
                 else{
                     const newItem={
                         qty:1,
                         price:price,
                         total:price
+                       
+                       
                     }
+                  //  console.log("tpu",newItem.price)
                     orderList.push(newItem)
+
                 }
                 setQuantity(orderList)
                // console.log(orderList[qty])
@@ -77,6 +143,8 @@ const CustomerBuySpareParts = ({navigation}) => {
                         let newQty=item[0].qty-1
                         item[0].qty=newQty
                         item[0].total=item[0].qty*price
+                        setTp( item[0].total)
+                  // console.log("else",tp)
                     }
                 }
                 setQuantity(orderList)
@@ -89,13 +157,14 @@ const CustomerBuySpareParts = ({navigation}) => {
             let quantitys=quantity.filter(a=>a.price==price)
             if (quantitys.length > 0){
                
-             console.log(quantitys[0].qty)
+            // console.log(quantitys[0].qty)
                 return quantitys[0].qty
                
             }
                 return 0
         
         }
+       // console.log('hey',tp)
     //    const getItemCount=()=>{
     //        let ItemCount=quantity.reduce((c,a,b)=>[a.qty+b.qty,0],0)
     //        console.log(ItemCount)
@@ -121,7 +190,7 @@ const CustomerBuySpareParts = ({navigation}) => {
                 </Card.Content>
                 <Card.Actions>
                     <Button>{item.price}</Button>
-                    <Button>add</Button>
+                    <Button onPress={()=>Cart(item)}> add</Button>
                     <Icon name="pluscircleo" style={styles.icon} onPress={()=>orderItem("+",item.price)}/>
                     <Text style={styles.icon}>{getOrderQuantity(item.price)}</Text>
                     <Icon name="minuscircleo" style={styles.icon} onPress={()=>orderItem("-", item.price)}/>
