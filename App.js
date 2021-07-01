@@ -8,8 +8,8 @@ import Navigations from './src/navigation/Navigations';
 const App=()=>{
   return(
     
- <Navigations /> 
-  // <TrackCustomerLocation />
+ //<Navigations /> 
+  <TrackCustomerLocation />
   //<ViewCart/> 
  //<CustomerBuySpareParts />
   )
