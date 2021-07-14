@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "872622038457",
+    "project_id": "roadmechapp",
+    "storage_bucket": "roadmechapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872622038457:android:623560799a0f07f3d4aa68",
+        "android_client_info": {
+          "package_name": "com.roadmechapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872622038457-m0pufasbuv6icjqjqets4qe7habk150s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVjP1effhvxMkIgFLkqDUTQHkcFFjk8os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872622038457-m0pufasbuv6icjqjqets4qe7habk150s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
