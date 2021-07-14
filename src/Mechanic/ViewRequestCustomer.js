@@ -24,8 +24,8 @@ const ViewRequestCustomer = ({ navigation }) => {
                         name: child.val().CustomerName,
                         email: child.val().CustomerEmail,
                         phone: child.val().CustomerPhone,
-                        CustomerLatitude:child.val().CustomerLatitude,
-                        CustomerLongitude:child.val().CustomerLongitude,
+                        CustomerLatitude:child.val().latitude,
+                        CustomerLongitude:child.val().longitude,
 
 
 
@@ -54,9 +54,17 @@ const ViewRequestCustomer = ({ navigation }) => {
                     <Text style={styles.listtext}>Name:   {item.name}</Text>
                     <Text style={styles.listtext}>Email:  {item.email}</Text>
                     <Text style={styles.listtext}>Phone:  {item.phone}</Text>
+                    <Text style={styles.listtext}>latitude:  {item.CustomerLatitude}</Text>
+
+                    <Text style={styles.listtext}>longitude:  {item.CustomerLongitude}</Text>
+
+
                     <View style={styles.iconcontainer}>
                         <Icons name="check" style={styles.iconaccept}
-                            onPress={() => navigation.navigate("TrackCustomerLocation", { paramKey: item })} />
+                            onPress={() => navigation.navigate("TrackCustomerLocation", {
+                                CustomerLatitude: item.CustomerLatitude,
+                                CustomerLongitude: item.CustomerLongitude, phone: item.phone
+                                    })} />
                         <Icons name="cross" style={styles.icondecline}
                             onPress={() => alert('Request Declined')} />
 

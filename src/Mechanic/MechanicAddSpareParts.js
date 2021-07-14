@@ -48,6 +48,8 @@ const MechanicAddSpareParts = () => {
   const [desc, setDesc] = useState('')
   const [price, setPrice] = useState('')
   const [image, setImage] = useState('')
+  const [code, setCode] = useState('')
+
 
   const UploadSparePartsData = async () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -61,12 +63,13 @@ const MechanicAddSpareParts = () => {
         let userId = auth().currentUser.uid;
         if (userId) {
           AsyncStorage.setItem('MechanicId', userId);
-          database().ref('SpareParts/').push({
+          database().ref('SpareParts/'+ code).push({
             name: name,
             desc: desc,
             price: price,
             MechanicId: userId,
-            image: image
+            image: image,
+            code:code
 
 
           })
@@ -114,6 +117,14 @@ const MechanicAddSpareParts = () => {
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.text}> ADD SPARE PARTS </Text>
+        <View style={styles.txttopinput}>
+          <TextInput
+            label="Code"
+            value={code}
+            mode='outlined'
+            onChangeText={text => setCode(text)}
+          />
+        </View>
         <View style={styles.txttopinput}>
           <TextInput
             label="Name"

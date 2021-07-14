@@ -1,5 +1,5 @@
 import React,{ useState} from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import Icons from 'react-native-vector-icons/Entypo'
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
@@ -7,26 +7,48 @@ import auth from '@react-native-firebase/auth';
 
 const ViewCart = () => {
     const [list, setList] = useState([])
-   let id= auth().currentUser.uid
+    const [totalprice, setTotalPrice]=useState([])
+    const deleteCust = (item) => {
+        console.log(`item`, item.price)
+        database()
+            .ref('Cart/' + item.total)
+            .remove();
 
-    database()
-        .ref(`Cart`+id)
-        .on('value', snapshot => {
-           // console.log("s", snapshot)
+    };
+
+
+    const getTotal=(total)=>{
+        let sum=0;
+        sum=sum+total.total
+        console.log("sum",sum)
+
+    }
+
+   let id= auth().currentUser.uid
+   var currentUser = auth().currentUser
+   database().ref(`Cart`).child(currentUser.uid).on('value', (snapshot) => {
+    // database()
+    //     .ref(`Cart`)
+    //     .on('value', snapshot => {
+          // console.log("ss", snapshot)
             let li = []
             snapshot.forEach((child) => {
-                var show = child.val().userId
-                console.log("showss",show)
-                if (id) {
-                    console.log("id", id)
-
+                let show = child.val().UserId
+              //  console.log("showssss",show)
+                if (show==id) {
+                   // console.log("id", id)
+                   
                     li.push({
-                        name: child.val().name,
-                        image: child.val().image,
-                        desc: child.val().desc,
+                        //image: child.val().image,
+                        name:child.val().name,
+
+                        //name:  snapshot.child('name').val()
+                        
+                       
+                       // desc: child.val().desc,
                         total:child.val().total,
-                        price:child.value.price
-                        //CustomerLongitude:child.val().CustomerLongitude,
+                        price:child.val().price
+                        // //CustomerLongitude:child.val().CustomerLongitude,
 
 
                         
@@ -44,13 +66,14 @@ const ViewCart = () => {
 
 
         });
+      //  let t=data.reduce((a,b)=>a.total+b.total,0);
 
 
 
 
 
     const RenderItem = (item) => {
-        console.log("name", item.total)
+       // console.log("names", item.total)
         return (
             <View>
 
@@ -61,10 +84,8 @@ const ViewCart = () => {
                     <Text style={styles.listtext}>price:  {item.price}</Text>
                     <Text style={styles.listtext}>total:  {item.total}</Text>
                     <View style={styles.iconcontainer}>
-                        <Icons name="check" style={styles.iconaccept}
-                            onPress={() => navigation.navigate("TrackCustomerLocation", { paramKey: item })} />
                         <Icons name="cross" style={styles.icondecline}
-                            onPress={() => alert('Request Declined')} />
+                            onPress={() => deleteCust(item)} />
 
                     </View>
 
@@ -78,12 +99,16 @@ const ViewCart = () => {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.txt}>Cart</Text>
+            <Text style={styles.text}>Cart</Text>
+            <TouchableOpacity style={styles.confirmbtn}>
+                <Text style={styles.txt}>Confirm</Text>
+            </TouchableOpacity>
+           
             <View style={styles.listcontainer}>
 
                 <FlatList
                     data={list}
-                    keyExtractor={(item) => item.price}
+                    keyExtractor={(item) => item.total}
                     renderItem={({ item }) => (
                         RenderItem(item)
                     )}
@@ -104,7 +129,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#C3E4ED",
 
     },
-    txt: {
+    text: {
         fontSize: 35,
         textAlign: "center",
         marginTop: 30,
@@ -156,6 +181,33 @@ const styles = StyleSheet.create({
         flexDirection: "row-reverse",
         marginTop: 0
 
-    }
+    },
+   
+    txt: {
+        fontSize: 22,
+        fontFamily: "StrickenBrush-D9a3",
+        color: "#ffffff",
+    
+        paddingTop: 10,
+        borderRadius: 30,
+    
+      },
+      confirmbtn: {
+        marginTop: 60,
+        backgroundColor: "red",
+        height: "9%",
+        // width:"50%",
+        marginHorizontal: 50,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#C2185B',
+    
+        elevation: 10,
+        shadowOpacity: 90,
+        shadowColor: '#000000',
+        shadowRadius: 25,
+        shadowOffset: { width: 100, height: 30 },
+      }
 
 })
