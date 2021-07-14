@@ -35,6 +35,7 @@ import MechanicAddSpareParts from '../Mechanic/MechanicAddSpareParts';
 import TrackCustomerLocation from '../Mechanic/TrackCustomerLocation';
 import ViewCart from '../Customer/ViewCart';
 import BuySpareParts from '../Customer/BuySpareParts';
+import TrackMechanicLocation from '../Customer/TrackMechanicLocation';
 
 const Navigations = () => {
   const Stack = createStackNavigator();
@@ -158,6 +159,9 @@ const Navigations = () => {
           options={{ title: '' }} />
           <Stack.Screen name="Checkout" component={BuySpareParts}
           options={{ title: '' }} />
+           <Stack.Screen name="TrackMechanicLocation" component={TrackMechanicLocation}
+          options={{ title: '' }} />
+
 
 
 

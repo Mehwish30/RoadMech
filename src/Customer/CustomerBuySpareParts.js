@@ -27,7 +27,7 @@ const CustomerBuySpareParts = ({navigation}) => {
               let userId = auth().currentUser.uid;
               if (userId) {
                 AsyncStorage.setItem('UserId', userId);
-                database().ref('Cart/'+ userId).push({
+                database().ref('addToCart/'+ userId).push({
                   name: item.name,
                   price:item.price,
                   total:tp,
@@ -43,7 +43,7 @@ const CustomerBuySpareParts = ({navigation}) => {
               }
              console.log("name", tp)
             }
-            alert("Spare Parts Added")
+            alert("Spare Parts Added to CART")
           }
           catch (error) {
             console.log(error);
@@ -81,15 +81,27 @@ const CustomerBuySpareParts = ({navigation}) => {
 
 
     database()
-        .ref(`SpareParts`)
-        .on('value', snapshot => {
-            let li = []
-            //let list=[]
-    
-            snapshot.forEach((child) => {
+    .ref(`SparePart`)
+    .on('value', snapshot => {
+        let li = []
+        //let list=[]
 
+        snapshot.forEach((child) => {
+
+            
+            
+
+
+            
+            
+         
+             
+               
+               
                 li.push({
-                    AdminId: child.val().AdminId,
+                   
+                    name:child.val().name,
+                    
                     name: child.val().name,
                     price: child.val().price,
                     desc: child.val().desc,
@@ -182,11 +194,12 @@ const CustomerBuySpareParts = ({navigation}) => {
     const onChangeSearch = query => setSearchQuery(query);
 
     const RenderItem = (item) => {
+        
       
         return (
             <Card style={styles.card}>
                 <Card.Title title={item.name} />
-                <Card.Title title={title.code} />
+                <Card.Title title={item.code} />
 
                 <Card.Cover source={{ uri: item.image }} style={{ width: "100%", height: 200 }} />
                 <Card.Content>

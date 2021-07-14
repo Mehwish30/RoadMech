@@ -12,6 +12,15 @@ const ViewRequestCustomer = ({ navigation }) => {
 
     const [list, setList] = useState([])
 
+    const deleteRequest = (item) => {
+        console.log(`item`, item.CustomerId)
+        database()
+            .ref(`Service_Request` + item.CustomerId)
+            .remove();
+            alert("Request Deleted Successfully");
+
+    };
+
     database()
         .ref(`Service_Request`)
         .on('value', snapshot => {
@@ -26,6 +35,7 @@ const ViewRequestCustomer = ({ navigation }) => {
                         phone: child.val().CustomerPhone,
                         CustomerLatitude:child.val().latitude,
                         CustomerLongitude:child.val().longitude,
+                        CustomerId:child.val().CustomerId,
 
 
 
@@ -41,13 +51,7 @@ const ViewRequestCustomer = ({ navigation }) => {
 
 
         });
-        const deleteRequest = (item) => {
-            console.log(`item`, item.email)
-            database()
-                .ref('Service_Request/' + item.email)
-                .remove();
-    
-        };
+       
 
 
 
@@ -73,7 +77,7 @@ const ViewRequestCustomer = ({ navigation }) => {
                                 CustomerLongitude: item.CustomerLongitude, phone: item.phone
                                     })} />
                         <Icons name="cross" style={styles.icondecline}
-                            onPress={() => alert('Request Declined')} />
+                            onPress={() => deleteRequest(item)} />
 
                     </View>
 
@@ -92,7 +96,7 @@ const ViewRequestCustomer = ({ navigation }) => {
 
                 <FlatList
                     data={list}
-                    keyExtractor={(item) => item.email}
+                    keyExtractor={(item) => item.CustomerId}
                     renderItem={({ item }) => (
                         RenderItem(item)
                     )}

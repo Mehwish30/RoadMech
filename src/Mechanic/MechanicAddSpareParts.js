@@ -63,7 +63,7 @@ const MechanicAddSpareParts = () => {
         let userId = auth().currentUser.uid;
         if (userId) {
           AsyncStorage.setItem('MechanicId', userId);
-          database().ref('SpareParts/'+ code).push({
+          database().ref('SparePart/').push({
             name: name,
             desc: desc,
             price: price,

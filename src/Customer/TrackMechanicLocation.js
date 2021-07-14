@@ -2,8 +2,6 @@
 
 import React,{useState, Component} from 'react';
 import {StyleSheet, View, Dimensions, Text,Button, Alert} from 'react-native';
-import MapView,{Marker,Polyline,PROVIDER_GOOGLE} from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import Geolocation from "@react-native-community/geolocation";
 

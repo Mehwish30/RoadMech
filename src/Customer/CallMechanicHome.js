@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import database from '@react-native-firebase/database';
 
 
+
 export default class CallMechanicHome extends React.Component {
   constructor(props) {
     super(props);
@@ -161,9 +162,15 @@ export default class CallMechanicHome extends React.Component {
 
         </MapView>
         <View style={styles.btn}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("TrackMechanicLocation")}>
+            <Text style={styles.txt} >Track Mechanic</Text>
+          </TouchableOpacity>
+          </View>
+        <View style={styles.btn}>
           <TouchableOpacity onPress={() => request()}>
             <Text style={styles.txt} >Request</Text>
           </TouchableOpacity>
+        
         </View>
       </View>
     );

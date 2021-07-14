@@ -11,7 +11,7 @@ const ViewCart = () => {
     const deleteCart = (item) => {
         console.log(`item`, item.code)
         database()
-            .ref('Cart/' + item.code)
+            .ref(`addToCart`+ item.code)
             .remove();
 
     };
@@ -26,27 +26,21 @@ const ViewCart = () => {
 
    let id= auth().currentUser.uid
    var currentUser = auth().currentUser
-   database().ref(`Cart`).child(currentUser.uid).on('value', (snapshot) => {
-    // database()
-    //     .ref(`Cart`)
-    //     .on('value', snapshot => {
-          // console.log("ss", snapshot)
+   database().ref(`addToCart`).child(currentUser.uid).on('value', (snapshot) => {
+   
             let li = []
             snapshot.forEach((child) => {
                 let show = child.val().UserId
-              //  console.log("showssss",show)
+             
                 if (show==id) {
-                   // console.log("id", id)
+                   
                    
                     li.push({
-                        //image: child.val().image,
+                       
                         name:child.val().name,
                         code:child.val().code,
 
-                        //name:  snapshot.child('name').val()
-                        
                        
-                       // desc: child.val().desc,
                         total:child.val().total,
                         price:child.val().price
                         // //CustomerLongitude:child.val().CustomerLongitude,
